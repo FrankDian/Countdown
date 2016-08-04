@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>小球下落</title>
+		
+	</head>
+	<body>
+		<header> 
+			
+		</header>
+		
+		<section id="idea" style="text-align: center; ">
+			<canvas id="canvas" style="border: 1px dashed #005588;" >
+				对不起，您的浏览器不支持canvas,请换浏览器后再试!
+			</canvas>
+			
+		</section>
+		
+		<script type="application/javascript" >
+			//坐标，半径，重力，x方向上的速度，y方向上的速度，颜色
+			var ball={x:512, y:100, r:5, g:2 , vx:-4 , vy:-10 , color:"#005588" };
+			window.onload = function(){ 
+				var canvas=document.getElementById("canvas");
+				canvas.width=1024;
+				canvas.height=500;
+				
+				var context=canvas.getContext("2d");
+				
+				setInterval(
+					function(){
+						render(context);
+						update();
+					},
+					50
+				);
+			}
+			
+			function update(){
+				ball.x += ball.vx;
+				ball.y += ball.vy;
+				ball.vy += ball.g;
+				
+				if(ball.y >= canvas.height-ball.r ){
+					ball.y = canvas.height-ball.r;
+					ball.vy= - ball.vy * 0.5;
+					
+				}
+				
+			}
+			
+			function render(cxt){
+				
+				cxt.clearRect(0,0,cxt.canvas.width,cxt.canvas.height);
+				
+				cxt.fillStyle = ball.color;
+				cxt.beginPath();
+				cxt.arc(ball.x , ball.y , ball.r , 0 , 2*Math.PI);
+				cxt.closePath();
+				
+				cxt.fill();
+			}
+		</script>
+	</body>
+</html>
